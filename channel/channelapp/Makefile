@@ -5,9 +5,9 @@ PREFIX = $(DEVKITPPC)/bin/powerpc-eabi-
 CC = $(PREFIX)gcc
 AS = $(PREFIX)as
 OBJCOPY = $(PREFIX)objcopy
-ELF2DOL =$(DEVKITPPC)/bin/elf2dol
+ELF2DOL =$(DEVKITPRO)/tools/bin/elf2dol
 GDB = $(PREFIX)gdb
-BIN2S = $(DEVKITPPC)/bin/bin2s
+BIN2S = $(DEVKITPRO)/tools/bin/bin2s
 TARGET_STUB = stub
 TARGET_APP = channelapp
 TARGET_CHAN = channelapp-channel
@@ -111,11 +111,11 @@ $(TARGET_APP)_nopax.elf: $(FILES_SRC_OBJ) newrvl.ld
 	@$(CC) $(FILES_SRC_OBJ) $(LDFLAGS_APP) -o $@
 
 $(TARGET_APP).elf: $(TARGET_APP)_nopax.elf
-	@$(WIIPAX) -s devkitfail $< $@
+	@$(WIIPAX) -s devkitppc $< $@
 
 $(TARGET_CHAN).elf: $(TARGET_APP)_nopax.elf
 	@echo $(@F)
-	@$(WIIPAX) -s dkfailchannel $< $@
+	@$(WIIPAX) -s dkppcchannel $< $@
 
 $(TARGET_CHAN).dol: $(TARGET_CHAN).elf $(ELF2DOL)
 	@echo $(@F)
